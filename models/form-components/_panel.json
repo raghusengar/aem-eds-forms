@@ -1,0 +1,97 @@
+{
+    "definitions": [
+        {
+            "title": "Panel",
+            "id": "panel",
+            "plugins": {
+                "xwalk": {
+                    "page": {
+                        "resourceType": "core/fd/components/form/panelcontainer/v1/panelcontainer",
+                        "template": {
+                            "jcr:title": "Panel",
+                            "fieldType": "panel",
+                            "enabled": true,
+                            "visible": true
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "models": [
+        {
+            "id": "panel",
+            "fields": [
+                {
+                    "component": "container",
+                    "name": "basic",
+                    "label": "Basic",
+                    "collapsible": false,
+                    "...": "../form-common/_basic-input-fields.json"
+                },
+                {
+                    "component": "container",
+                    "name": "repeat",
+                    "label": "Repeat Panel",
+                    "collapsible": true,
+                    "fields": [
+                        {
+                            "component": "boolean",
+                            "name": "repeatable",
+                            "label": "Make panel repeatable",
+                            "valueType": "boolean"
+                        },
+                        {
+                            "component": "select",
+                            "name": "variant",
+                            "label": "Variant",
+                            "options": [
+                                {
+                                    "name": "Default (No action items)",
+                                    "value": "default"
+                                },
+                                {
+                                    "name": "Add and Delete Buttons",
+                                    "value": "addAndDeleteButtons"
+                                }
+                            ],
+                            "value": "addAndDeleteButtons",
+                            "condition": { "===": [{"var" : "repeatable"}, true] }
+                        },
+                        {
+                            "component": "number",
+                            "name": "minOccur",
+                            "label": "Minimum repetitions",
+                            "valueType": "number",
+                            "description": "Minimum number of times the panel appears on the form"
+                        },
+                        {
+                            "component": "number",
+                            "name": "maxOccur",
+                            "label": "Maximum repetitions",
+                            "valueType": "number",
+                            "description": "Maximum number of times the panel can appear on the form"
+                        },
+                        {
+                            "component": "text",
+                            "name": "repeatAddButtonLabel",
+                            "label": "Add Button Label",
+                            "valueType": "string",
+                            "condition": { "===": [{"var" : "variant"}, "addAndDeleteButtons"] }
+                        },
+                        {
+                            "component": "text",
+                            "name": "repeatDeleteButtonLabel",
+                            "label": "Delete Button Label",
+                            "valueType": "string",
+                            "condition": { "===": [{"var" : "variant"}, "addAndDeleteButtons"] }
+                        }
+                    ]
+                },
+                {
+                    "...": "../form-common/_help-container.json"
+                }
+            ]
+        }
+    ]
+}
